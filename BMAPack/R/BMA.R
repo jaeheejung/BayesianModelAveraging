@@ -18,18 +18,18 @@
 #' @export
 setClass(Class="BMA",
 	representation=representation(
-		Coefs="matrix",
+		Coefs="list",
 		R2s="numeric",
 		ModelOdds="numeric",
-		ExpectedValues="numeric",
-		Nonzero="numeric"
+		ExpectedValues="list",
+		Nonzero="list"
 		),
 	prototype=prototype(
-		Coefs=matrix(),
+		Coefs=list(),
 		R2s=numeric(),
 		ModelOdds=numeric(),
-		ExpectedValues=numeric(),
-		Nonzero=numeric()
+		ExpectedValues=list(),
+		Nonzero=list()
 		)
 	)
 

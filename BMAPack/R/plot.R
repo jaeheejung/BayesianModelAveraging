@@ -24,17 +24,19 @@ setMethod("plot","BMA",
 		
 		plot(unlist(x@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
 		
-axis(side=1,labels=names(x@ExpectedValues))
+axis(side=1,at=c(1:length(x@ExpectedValues)),labels=names(x@ExpectedValues))
 
 axis(side=2)
 
-plot(unlist(x@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Posterior probability that coefficient is non-zero",axes=FALSE)
+title("Expected values \n of coefficients")
 
-axis(side=1,labels=names(x@ExpectedValues))
+plot(unlist(x@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Prob that coefficient is non-zero",axes=FALSE)
+
+axis(side=1,at=c(1:length(x@ExpectedValues)),labels=names(x@ExpectedValues))
 
 axis(side=2)
 
-main("Coefficients' expected values and posterior probabilities of being non-zero")
+title("Posterior probability \n that the coefficient \n is non-zero")
 
 }
 )

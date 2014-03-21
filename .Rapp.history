@@ -1,145 +1,3 @@
-z
-?data.frame
-data.frame(z)
-?matrix
-matrix(z,ncol=3)
-matrix(z,ncol=3,nrow=7)
-coefs
-coefs[[7]]
-coefs[[7]]$"A"
-coefs[[7]][A]
-coefs[[7]]["A"]
-coefs[[7]][1]
-covariate.names
-for(i in covariate.names){#
-		for(j in 1:k){#
-			coefs[[j]][i]#
-		}#
-	}
-for(i in covariate.names){#
-		q <- for(j in 1:k){#
-			coefs[[j]][i]#
-		}#
-	}
-q
-for(i in covariate.names){#
-		for(j in 1:k){#
-			q <- coefs[[j]][i]#
-		}#
-	}
-q
-q <- NULL
-for(i in covariate.names){#
-		for(j in 1:k){#
-			q <- c(q,coefs[[j]][i])#
-		}#
-	}
-q
-for(i in covariate.names)(j in 1:k){#
-			q <- c(q,coefs[[j]][i])#
-		}
-q <- NULL#
-	for(i in covariate.names)for(j in 1:k){#
-			q <- c(q,coefs[[j]][i])#
-		}
-q
-coefs[[i]]["A"]
-q <- NULL#
-	for(i in covariate.names)for(j in 1:k){#
-			q <- c(q,coefs[[i]][j])#
-		}#
-	}
-q <- NULL#
-	for(i in covariate.names)for(j in 1:k){#
-			q <- c(q,coefs[[i]][j])#
-		}
-q
-q <- NULL#
-	for(i in covariate.names){#
-		for(j in 1:k){#
-			q <- c(q,coefs[[i]][j])#
-		}#
-	}
-q
-q <- NULL#
-	for(j in covariate.names){#
-		for(i in 1:k){#
-			q <- c(q,coefs[[i]][j])#
-		}#
-	}
-q
-q <- NULL#
-	for(j in 1:k){#
-		for(i in covariate.names){#
-			q <- c(q,coefs[[j]][i])#
-		}#
-	}
-q
-q
-q["A"]
-q["A","A"]
-str(q)
-odds
-p
-coefs
-coefs
-k
-(g/(g+1))*coefs
-coefs
-g
-z
-(g/(g+1))*z
-list((g/(g+1))*z)
-coefs
-(g/(g+1))*coefs[[1]]
-(g/(g+1))*coefs[[7]]
-coefs
-all.lm
-coefs
-all.lm
-z
-coefs.unlist <- unlist(coefs)
-coefs.unlist
-oefs.unlist <- unlist(coefs)
-coefs.unlist <- unlist(coefs)
-coefs.unlist
-(g/(g+1))*coefs.unlist
-ev.per.model <- (g/(g+1))*coefs.unlist
-ev.per.model
-which(ev.per.model["A"])
-coefs
-odds
-B
-p
-r2s
-coefs
-coefs.mat <- matrix("NA",nrow=length(all.lm),ncol=ncol(x))
-coefs.mat
-coefs
-unlist(coefs[1])
-unlist(coefs[7])
-unlist(coefs[7],use.names=FALSE)
-for(i in 1:nrow(coef.matrix)){#
-coef.matrix[i,seq(length(unlist(coefs[i],use.names=FALSE)))]<- unlist(coefs[i],use.names=FALSE)#
-	}
-coefs.mat
-for(i in 1:nrow(coefs.mat)){#
-coefs.mat[i,seq(length(unlist(coefs[i],use.names=FALSE)))]<- unlist(coefs[i],use.names=FALSE)#
-	}
-coefs.mat
-coefs.mat <- matrix("NA",nrow=length(all.lm),ncol=ncol(x),dimnames=c(NULL,covariate.names))
-coefs.mat <- matrix("NA",nrow=length(all.lm),ncol=ncol(x),dimnames=list(NULL,covariate.names))
-coefs.mat
-Fill in the matrix with coefficient estimates using a for loop.#
-	for(i in 1:nrow(coefs.mat)){#
-coefs.mat[i,seq(length(unlist(coefs[i],use.names=FALSE)))]<- unlist(coefs[i],use.names=FALSE)#
-	}
-coefs.mat
-r2s
-coefs.mat
-coefs.mat <- (g/(g+1))*coefs.mat
-str(coefs.mat)
-coefs.mat
 (g/(g+1))*x
 coefs
 (g/(g+1))*coefs
@@ -531,7 +389,6 @@ nonzero2
 nonzero3
 plot
 covariate.names
-covariate.names
 coefs
 rsquared
 r2s
@@ -569,7 +426,6 @@ z
 unlist(z)
 unlist(unlist(z))
 plot(unlist(z))
-plot(unlist(z))
 nonzero1
 par(mfrow=c(1,2))#
 		plot(unlist(x@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)#
@@ -590,3 +446,97 @@ summary
 show
 summary(lm(y~x))
 coefs
+library(devtools)
+library(roxygen2)
+getwd()
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+fitBMA(myX,myY)
+fitBMA(myX,myY,g=3)
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+fitBMA(myX,myY)
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+fitBMA(myX,myY,3)
+hey <- fitBMA(myX,myY,3)
+print(hey)
+plot(hey)
+hey
+plot(unlist(x@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
+plot(unlist(hey@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
+axis(side=1,labels=names(hey@ExpectedValues))
+hey@ExpectedValues
+unlist(hey@ExpectedValues)
+?axis
+length(hey@ExpectedValues)
+axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(hey@ExpectedValues))
+axis(side=2)
+plot(unlist(x@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Posterior probability that coefficient is non-zero",axes=FALSE)
+plot(unlist(hey@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
+axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(x@ExpectedValues))
+axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(hey@ExpectedValues))
+axis(side=2)
+plot(unlist(hey@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Posterior probability that coefficient is non-zero",axes=FALSE)
+axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(x@ExpectedValues))
+axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(hey@ExpectedValues))
+axis(side=2)
+main("Coefficients' expected values and posterior probabilities of being non-zero")
+?main
+title("Coefficients' expected values and posterior probabilities of being non-zero")
+title("Coefficients' expected values and \n posterior probabilities of being non-zero")
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+fitBMA(myX,myY,3)
+a <- fitBMA(myX,myY,3)
+plot(a)
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+fitBMA(myX,myY,3)
+z <- fitBMA(myX,myY,3)
+plot(z)
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+fitBMA(myX,myY,3)
+z < - fitBMA(myX,myY,3)
+z <- fitBMA(myX,myY,3)
+plot(z)

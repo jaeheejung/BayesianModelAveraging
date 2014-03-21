@@ -1,8 +1,9 @@
 Package: BMAPack
-Title: 
-Description: 
+Title: Bayesian model averaging
 Version: 0.1
-Authors@R: # getOptions('devtools.desc.author')
-Depends: R (>= 3.0.2)
-License: # getOptions('devtools.desc.license')
+Author: Jae Hee Jung
+Maintainer: Jae Hee Jung <jaeheejung@wustl.edu>
+Depends:
+    R (>= 3.0.2)
+License: GPL (>=2)
 LazyData: true
