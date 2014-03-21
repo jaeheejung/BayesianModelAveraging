@@ -15,14 +15,14 @@
 #' @rdname plot
 #' @aliases plot,BMA-method
 #' @export
-##This function returns two plots. In the left panel is the plot with the expected value of each coefficient in the y-axis, and in the right panel is the plot with the posterior probability that the coefficient is non-zero. The x-axis for both plots labels the covariates.
+##This function returns two plots. The left panel is the plot with the expected value of each coefficient in the y-axis, and the right panel is the plot with the posterior probability that the coefficient is non-zero. The x-axis for both plots labels the covariates.
 setMethod("plot","BMA",
 	function(x,...){
 		
 		##Set the plotting region.
 		par(mfrow=c(1,2))
 		
-		plot(x@ExpectedValues,ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
+plot(x@ExpectedValues,ylim=c(min(x@ExpectedValues-0.5),max(x@ExpectedValues+0.5)),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
 		
 axis(side=1,at=c(1:length(x@ExpectedValues)),labels=names(x@ExpectedValues))
 
@@ -30,7 +30,7 @@ axis(side=2)
 
 title("Expected values \n of coefficients")
 
-plot(x@Nonzero,ylim=c(-1,1),xlab="Covariate",ylab="Prob that coefficient is non-zero",axes=FALSE)
+plot(x@Nonzero,ylim=c(min(x@Nonzero-0.5),max(x@Nonzero+0.5)),xlab="Covariate",ylab="Prob that coefficient is non-zero",axes=FALSE)
 
 axis(side=1,at=c(1:length(x@Nonzero)),labels=names(x@Nonzero))
 

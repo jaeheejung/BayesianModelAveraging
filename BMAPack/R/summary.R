@@ -15,6 +15,7 @@
 #' @rdname summary
 #' @aliases summary,BMA-method
 #' @export
+##This summary function returns in list format two slots from the output of the fitBMA() function: the posterior expected value of each coefficient and the posterior probability that the coefficient is non-zero.
 setMethod("summary","BMA",function(object){
 	list(ExpectedValues=object@ExpectedValues,Nonzero=object@Nonzero)
 })

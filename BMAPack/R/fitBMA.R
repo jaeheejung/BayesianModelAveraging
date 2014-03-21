@@ -24,8 +24,11 @@ setGeneric(name="fitBMA",
 	)
 
 #' @export
+##This function takes in a matrix of covariates and a matrix of dependent variables as input. The argument g is used to specify the hyper-prior.
 setMethod(f="fitBMA",c("matrix","matrix"),
 	definition=function(x,y,g,...){
+	
+	##First, we'll calculate the coefficients and Rsquared values.
 	
 	##Standardize the covariates.
 	x <- apply(x,2,function(X){(X-mean(X))/sd(X)})
@@ -56,7 +59,7 @@ setMethod(f="fitBMA",c("matrix","matrix"),
 	
 	##We'll now calculate the posterior model odds for each model.
 	
-	##For efficient coding, save the number of observations in the data and the number of linear models computed.
+	##For readable coding, save the number of observations in the data and the number of linear models computed.
 	n <- nrow(x)
 	k <- length(all.lm)
 	
@@ -82,21 +85,28 @@ setMethod(f="fitBMA",c("matrix","matrix"),
 	}
 	
 	##Now we'll calculate the posterior expected values of the coefficients.
+	##Since it is difficult to compute the expected values from the list format, we'll first change the object 'coefs' into a data frame.
 	
+	##Get the names of the covariates whose coefficients are estimated for each model.
 	covariates.mod <- sapply(coefs,names)
 	
+	##Identify the covariates.
 	covariates <- unique(unlist(covariates.mod))
 	
+	##Find the number of covariates used in each model.
 	covariate.number <- sapply(coefs,length)
 	
+	##Create an empty list. Fill it with the coefficient estimates of each model, indicating the coefficients of covariates that the model does not compute as NA.
 	mod <- vector("list",length(covariate.number))
 	
 	for(i in seq_along(covariate.number)){
 			mod[[i]] <- unname(coefs[[i]])[match(covariates,covariates.mod[[i]])]
 		}
-		
+	
+	##Turn the list into a data.frame.	
 	coefs.df <- setNames(as.data.frame(do.call(rbind,mod),stringsAsFactors=FALSE),nm=covariates)
 	
+	##Calculate the expected value of each coefficient in each model using hyper-priors.
 	ev <- NULL
 	for(i in 1:nrow(coefs.df)){
 		for(j in 1:ncol(coefs.df)){
@@ -104,30 +114,36 @@ setMethod(f="fitBMA",c("matrix","matrix"),
 		}
 	}
 	
+	#Turn the vector into a matrix.
 	ev <- matrix(ev,ncol=ncol(coefs.df),byrow=TRUE)
 	
+	##Compute the expected value of each coefficient across all models.
 	each.ev <- NULL
 	for(i in 1:ncol(ev)){
 		each.ev <- c(each.ev,sum(odds*ev[,i],na.rm=TRUE))
 	}
 	
+	#Assign covariate names to the expected value of coefficients for readability.
 	names(each.ev) <- c(covariate.names)
 	
-	##Now we'll calculate the posterior probability that the coefficient is non-zero.
+	##Lastly, we'll calculate the posterior probability that the coefficient is non-zero.
 	
+	##Create an index list that contains the model numbers in which each covariate is included.
 	index <- list(NULL)
 	for(i in 1:ncol(coefs.df)){
 		index[[i]] <- which(!is.na(coefs.df[,i]))
 	}
 	
+	##Use the index to sum up the posterior model odds for models including the coefficient.
 	nonzero <- NULL
 	for(i in 1:ncol(coefs.df)){
 		nonzero <- c(nonzero,sum(odds[index[[i]]])/sum(odds))
 	}
 	
+	##Assign names to the vector for readability.
 	names(nonzero) <- c(covariate.names)
 	
-	##Return the items in the five slots.
+	##Since we've calculated all we need, assign the objects in the five slots of the class 'BMA'.
 return(new("BMA",Coefs=coefs,R2s=r2s,ModelOdds=odds,ExpectedValues=each.ev,Nonzero=nonzero))
 
 	}
