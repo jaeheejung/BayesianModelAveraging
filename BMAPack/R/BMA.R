@@ -21,15 +21,15 @@ setClass(Class="BMA",
 		Coefs="list",
 		R2s="numeric",
 		ModelOdds="numeric",
-		ExpectedValues="list",
-		Nonzero="list"
+		ExpectedValues="numeric",
+		Nonzero="numeric"
 		),
 	prototype=prototype(
 		Coefs=list(),
 		R2s=numeric(),
 		ModelOdds=numeric(),
-		ExpectedValues=list(),
-		Nonzero=list()
+		ExpectedValues=numeric(),
+		Nonzero=numeric()
 		)
 	)
 

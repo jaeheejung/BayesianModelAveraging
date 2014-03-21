@@ -16,5 +16,5 @@
 #' @aliases summary,BMA-method
 #' @export
 setMethod("summary","BMA",function(object){
-	list(object@ExpectedValues,object@Nonzero)
+	list(ExpectedValues=object@ExpectedValues,Nonzero=object@Nonzero)
 })

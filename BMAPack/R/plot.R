@@ -22,7 +22,7 @@ setMethod("plot","BMA",
 		##Set the plotting region.
 		par(mfrow=c(1,2))
 		
-		plot(unlist(x@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
+		plot(x@ExpectedValues,ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
 		
 axis(side=1,at=c(1:length(x@ExpectedValues)),labels=names(x@ExpectedValues))
 
@@ -30,9 +30,9 @@ axis(side=2)
 
 title("Expected values \n of coefficients")
 
-plot(unlist(x@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Prob that coefficient is non-zero",axes=FALSE)
+plot(x@Nonzero,ylim=c(-1,1),xlab="Covariate",ylab="Prob that coefficient is non-zero",axes=FALSE)
 
-axis(side=1,at=c(1:length(x@ExpectedValues)),labels=names(x@ExpectedValues))
+axis(side=1,at=c(1:length(x@Nonzero)),labels=names(x@Nonzero))
 
 axis(side=2)
 

@@ -1,533 +1,3 @@
-(g/(g+1))*x
-coefs
-(g/(g+1))*coefs
-2*coefs
-2*coefs[1]
-2*coefs[[1]
-]
-ev.vec <- NULL#
-	for(i in 1:k){#
-		ev.vec <- c(ev.vec,(g/(g+1))/coefs[[i]])#
-	}
-ev.vec
-odds
-as.matrix(ev.vec)
-all.ev <- NULL#
-	for(i in 1:k){#
-		all.ev <- c(all.ev,(g/(g+1))/coefs[[i]])#
-	}
-all.ev
-all.ev <- as.matrix(all.ev)
-all.ev
-all.eva["A",]
-all.ev["A",]
-coefs
-coef1 <- NULL
-for(i in 1:k){#
-		coef1 <- c(coef1,coefs[[i]]["A"])#
-	}
-coef1
-coef2 <- NULL#
-	for(i in 1:k){#
-		coef1 <- c(coef2,coefs[[i]]["B"])#
-	}
-coef1 <- NULL#
-	for(i in 1:k){#
-		coef1 <- c(coef1,coefs[[i]]["A"])#
-	}#
-	coef2 <- NULL#
-	for(i in 1:k){#
-		coef2 <- c(coef2,coefs[[i]]["B"])#
-	}#
-	coef3 <- NULL#
-	for(i in 1:k){#
-		coef3 <- c(coef3,coefs[[i]]["C"])#
-	}
-coef1
-coef2
-coef3
-for(i in c("coef1","coef2","coef3")){#
-		(g/(g+1))*i#
-	}
-for(i in c(coef1,coef2,coef3)){#
-		(g/(g+1))*i#
-	}
-coef1 <- NULL#
-	for(i in 1:k){#
-		coef1 <- c(coef1,coefs[[i]]["A"])#
-	}#
-	coef2 <- NULL#
-	for(i in 1:k){#
-		coef2 <- c(coef2,coefs[[i]]["B"])#
-	}#
-	coef3 <- NULL#
-	for(i in 1:k){#
-		coef3 <- c(coef3,coefs[[i]]["C"])#
-	}
-coef1
-coef2
-coef3
-(g/(g+1))*coef1
-ev <- (g/(g+1))*coef1
-ev1 <- (g/(g+1))*coef1
-ev2 <- (g/(g+1))*coef2
-ev3 <- (g/(g+1))*coef3
-ev2
-ev3
-odds
-odds*ev1
-ev1
-ev1 <- odds*ev1
-ev2 <- odds*ev2
-ev3 <- odds*ev3
-ev2
-ev3
-odds
-coefs
-coefs.unlist
-odds
-odds[c(1,4,5,7)]
-nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)
-nonzero1
-nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)
-nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
-nonzero2
-nonzero3
-coefs
-rsquared
-r2s
-rm(list=ls())
-rsquared
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-x <- myX
-y <- myY
-x
-y
-Standardize the covariates.#
-	x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
-	##Standardize the dependent variable.#
-	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
-	##Extract the names of the covariates.#
-	covariate.names <- colnames(x)#
-	##Extract the name of the outcome variable.#
-	outcome.name <- colnames(y)#
-	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
-	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
-	##Create the linear model formulas, excluding the intercepts.#
-	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
-	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
-	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
-	##Use the sapply() function to create a list of coefficient estimates.#
-	coefs <- sapply(all.lm,coef)#
-	##Use the sapply() function to get a vector of Rsquared values.#
-	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
-	##We'll now calculate the posterior model odds for each model.#
-	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
-	n <- nrow(x)#
-	k <- length(all.lm)#
-	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
-	p <- NULL#
-	for(i in 1:length(coefs.list)){#
-		p <- c(p,length(coefs.list[[i]]))#
-	}#
-	##Use a for loop to create a vector of posterior model frequencies for each model. #
-	B <- NULL#
-	for(i in 1:k){#
-		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
-	}#
-	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
-	B <- sum(B)#
-	##Create a vector of posterior model odds.#
-	odds <- NULL#
-	for(i in 1:k){#
-		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
-	}#
-	##Now we'll calculate the posterior expected values of the coefficients.#
-	coef1 <- NULL#
-	for(i in 1:k){#
-		coef1 <- c(coef1,coefs[[i]]["A"])#
-	}#
-	coef2 <- NULL#
-	for(i in 1:k){#
-		coef2 <- c(coef2,coefs[[i]]["B"])#
-	}#
-	coef3 <- NULL#
-	for(i in 1:k){#
-		coef3 <- c(coef3,coefs[[i]]["C"])#
-	}#
-	ev1 <- (g/(g+1))*coef1#
-	ev2 <- (g/(g+1))*coef2#
-	ev3 <- (g/(g+1))*coef3#
-	ev1 <- odds*ev1#
-	ev2 <- odds*ev2#
-	ev3 <- odds*ev3#
-	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
-	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
-	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
-	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
-g=3
-g
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-x <- myX
-y <- myY
-x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
-	##Standardize the dependent variable.#
-	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
-	##Extract the names of the covariates.#
-	covariate.names <- colnames(x)#
-	##Extract the name of the outcome variable.#
-	outcome.name <- colnames(y)#
-	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
-	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
-	##Create the linear model formulas, excluding the intercepts.#
-	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
-	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
-	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
-	##Use the sapply() function to create a list of coefficient estimates.#
-	coefs <- sapply(all.lm,coef)#
-	##Use the sapply() function to get a vector of Rsquared values.#
-	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
-	##We'll now calculate the posterior model odds for each model.#
-	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
-	n <- nrow(x)#
-	k <- length(all.lm)#
-	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
-	p <- NULL#
-	for(i in 1:length(coefs.list)){#
-		p <- c(p,length(coefs.list[[i]]))#
-	}#
-	##Use a for loop to create a vector of posterior model frequencies for each model. #
-	B <- NULL#
-	for(i in 1:k){#
-		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
-	}#
-	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
-	B <- sum(B)#
-	##Create a vector of posterior model odds.#
-	odds <- NULL#
-	for(i in 1:k){#
-		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
-	}#
-	##Now we'll calculate the posterior expected values of the coefficients.#
-	coef1 <- NULL#
-	for(i in 1:k){#
-		coef1 <- c(coef1,coefs[[i]]["A"])#
-	}#
-	coef2 <- NULL#
-	for(i in 1:k){#
-		coef2 <- c(coef2,coefs[[i]]["B"])#
-	}#
-	coef3 <- NULL#
-	for(i in 1:k){#
-		coef3 <- c(coef3,coefs[[i]]["C"])#
-	}#
-	ev1 <- (g/(g+1))*coef1#
-	ev2 <- (g/(g+1))*coef2#
-	ev3 <- (g/(g+1))*coef3#
-	ev1 <- odds*ev1#
-	ev2 <- odds*ev2#
-	ev3 <- odds*ev3#
-	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
-	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
-	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
-	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
-	##Standardize the dependent variable.#
-	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
-	##Extract the names of the covariates.#
-	covariate.names <- colnames(x)#
-	##Extract the name of the outcome variable.#
-	outcome.name <- colnames(y)#
-	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
-	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
-	##Create the linear model formulas, excluding the intercepts.#
-	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
-	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
-	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
-	##Use the sapply() function to create a list of coefficient estimates.#
-	coefs <- sapply(all.lm,coef)#
-	##Use the sapply() function to get a vector of Rsquared values.#
-	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
-	##We'll now calculate the posterior model odds for each model.#
-	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
-	n <- nrow(x)#
-	k <- length(all.lm)#
-	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
-	p <- NULL#
-	for(i in 1:length(coefs)){#
-		p <- c(p,length(coefs[[i]]))#
-	}#
-	##Use a for loop to create a vector of posterior model frequencies for each model. #
-	B <- NULL#
-	for(i in 1:k){#
-		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
-	}#
-	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
-	B <- sum(B)#
-	##Create a vector of posterior model odds.#
-	odds <- NULL#
-	for(i in 1:k){#
-		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
-	}#
-	##Now we'll calculate the posterior expected values of the coefficients.#
-	coef1 <- NULL#
-	for(i in 1:k){#
-		coef1 <- c(coef1,coefs[[i]]["A"])#
-	}#
-	coef2 <- NULL#
-	for(i in 1:k){#
-		coef2 <- c(coef2,coefs[[i]]["B"])#
-	}#
-	coef3 <- NULL#
-	for(i in 1:k){#
-		coef3 <- c(coef3,coefs[[i]]["C"])#
-	}#
-	ev1 <- (g/(g+1))*coef1#
-	ev2 <- (g/(g+1))*coef2#
-	ev3 <- (g/(g+1))*coef3#
-	ev1 <- odds*ev1#
-	ev2 <- odds*ev2#
-	ev3 <- odds*ev3#
-	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
-	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
-	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
-	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
-coefs
-r2s
-odds
-ev1
-ev2
-ev3
-coef1
-sum(coef1)
-sum(coef1,na.rm=TRUE)
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-x <- myX
-y <- myY
-x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
-	##Standardize the dependent variable.#
-	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
-	##Extract the names of the covariates.#
-	covariate.names <- colnames(x)#
-	##Extract the name of the outcome variable.#
-	outcome.name <- colnames(y)#
-	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
-	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
-	##Create the linear model formulas, excluding the intercepts.#
-	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
-	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
-	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
-	##Use the sapply() function to create a list of coefficient estimates.#
-	coefs <- sapply(all.lm,coef)#
-	##Use the sapply() function to get a vector of Rsquared values.#
-	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
-	##We'll now calculate the posterior model odds for each model.#
-	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
-	n <- nrow(x)#
-	k <- length(all.lm)#
-	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
-	p <- NULL#
-	for(i in 1:length(coefs)){#
-		p <- c(p,length(coefs[[i]]))#
-	}#
-	##Use a for loop to create a vector of posterior model frequencies for each model. #
-	B <- NULL#
-	for(i in 1:k){#
-		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
-	}#
-	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
-	B <- sum(B)#
-	##Create a vector of posterior model odds.#
-	odds <- NULL#
-	for(i in 1:k){#
-		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
-	}#
-	##Now we'll calculate the posterior expected values of the coefficients.#
-	coef1 <- NULL#
-	for(i in 1:k){#
-		coef1 <- c(coef1,coefs[[i]]["A"])#
-	}#
-	coef2 <- NULL#
-	for(i in 1:k){#
-		coef2 <- c(coef2,coefs[[i]]["B"])#
-	}#
-	coef3 <- NULL#
-	for(i in 1:k){#
-		coef3 <- c(coef3,coefs[[i]]["C"])#
-	}#
-	ev1 <- (g/(g+1))*coef1#
-	ev2 <- (g/(g+1))*coef2#
-	ev3 <- (g/(g+1))*coef3#
-	ev1 <- sum(odds*ev1,na.rm=TRUE)#
-	ev2 <- sum(odds*ev2,na.rm=TRUE)#
-	ev3 <- sum(odds*ev3,na.rm=TRUE)#
-	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
-	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
-	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
-	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
-ev1
-ev2
-ev3
-coef2
-coefs
-list(ev1,ev2,ev3)
-list("A"=ev1,"B"=ev2,"C"=ev3)
-c("A"=ev1,"B"=ev2,"C"=ev3)
-nonzero1
-nonzero2
-nonzero3
-ev1
-ev2
-ev3
-nonzero1
-nonzero2
-nonzero3
-plot
-covariate.names
-coefs
-rsquared
-r2s
-nonzero1
-ev1
-odds
-coefs[[7]]
-length(coefs[[7]])
-names(coefs[[7]])
-unique(coefs)
-?tail
-tail(coefs)
-length(coefs)
-names(coefs)
-coefs
-plot(coefs)
-plot(coefs[[7]])
-ev1
-list("A"=ev1,"B"=ev2,"C"=ev3)
-z <- list("A"=ev1,"B"=ev2,"C"=ev3)
-z
-plot()
-plot(z)
-matrix("A"=ev1,"B"=ev2,"C"=ev3)
-data.frame("A"=ev1,"B"=ev2,"C"=ev3)
-z <- data.frame("A"=ev1,"B"=ev2,"C"=ev3)
-plot(z)
-matrix(ev1,ev2,ev3)
-matrix(c(ev1,ev2,ev3))
-plot(matrix(c(ev1,ev2,ev3)))
-coefs
-z
-z <- list("A"=ev1,"B"=ev2,"C"=ev3)
-z
-unlist(z)
-unlist(unlist(z))
-plot(unlist(z))
-nonzero1
-par(mfrow=c(1,2))#
-		plot(unlist(x@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)#
-axis(side=1,labels=names(x@ExpectedValues))#
-#
-axis(side=2)#
-#
-plot(unlist(x@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Posterior probability that coefficient is non-zero",axes=FALSE)#
-#
-axis(side=1,labels=names(x@ExpectedValues))#
-#
-axis(side=2)#
-#
-main("Coefficients' expected values and posterior probabilities of being non-zero")#
-#
-}
-summary
-show
-summary(lm(y~x))
-coefs
-library(devtools)
-library(roxygen2)
-getwd()
-setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
-current.code <- as.package("BMAPack")
-load_all(current.code)
-library(devtools)
-library(roxygen2)
-setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
-current.code <- as.package("BMAPack")
-load_all(current.code)
-document(current.code)
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-fitBMA(myX,myY)
-fitBMA(myX,myY,g=3)
-library(devtools)
-library(roxygen2)
-setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
-current.code <- as.package("BMAPack")
-load_all(current.code)
-document(current.code)
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-fitBMA(myX,myY)
-library(devtools)
-library(roxygen2)
-setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
-current.code <- as.package("BMAPack")
-load_all(current.code)
-document(current.code)
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-fitBMA(myX,myY,3)
-hey <- fitBMA(myX,myY,3)
-print(hey)
-plot(hey)
-hey
-plot(unlist(x@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
-plot(unlist(hey@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
-axis(side=1,labels=names(hey@ExpectedValues))
-hey@ExpectedValues
-unlist(hey@ExpectedValues)
-?axis
-length(hey@ExpectedValues)
-axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(hey@ExpectedValues))
-axis(side=2)
-plot(unlist(x@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Posterior probability that coefficient is non-zero",axes=FALSE)
-plot(unlist(hey@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)
-axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(x@ExpectedValues))
-axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(hey@ExpectedValues))
-axis(side=2)
-plot(unlist(hey@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Posterior probability that coefficient is non-zero",axes=FALSE)
-axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(x@ExpectedValues))
-axis(side=1,at=c(1:length(hey@ExpectedValues)),labels=names(hey@ExpectedValues))
-axis(side=2)
-main("Coefficients' expected values and posterior probabilities of being non-zero")
-?main
-title("Coefficients' expected values and posterior probabilities of being non-zero")
-title("Coefficients' expected values and \n posterior probabilities of being non-zero")
-library(devtools)
-library(roxygen2)
-setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
-current.code <- as.package("BMAPack")
-load_all(current.code)
-document(current.code)
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-fitBMA(myX,myY,3)
-a <- fitBMA(myX,myY,3)
-plot(a)
-library(devtools)
-library(roxygen2)
-setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
-current.code <- as.package("BMAPack")
-load_all(current.code)
-document(current.code)
-myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
-myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
-fitBMA(myX,myY,3)
-z <- fitBMA(myX,myY,3)
-plot(z)
 library(devtools)
 library(roxygen2)
 setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
@@ -540,3 +10,319 @@ fitBMA(myX,myY,3)
 z < - fitBMA(myX,myY,3)
 z <- fitBMA(myX,myY,3)
 plot(z)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+x <- myX
+y <- myY
+x <- apply(x,2,function(X){(X-mean(X))/sd(X)})
+y <- apply(y,2,function(X){(X-mean(X))/sd(X)})
+covariate.names <- colnames(x)
+outcome.name <- colnames(y)
+combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)
+formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})
+all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})
+coefs <- sapply(all.lm,coef)
+coefs
+r2s <- sapply(all.lm,function(X){summary(X)$r.squared})
+r2s
+n <- nrow(x)
+k <- length(all.lm)
+p <- NULL
+for(i in 1:length(coefs)){
+p <- c(p,length(coefs[[i]]))
+}
+p
+B <- NULL
+for(i in 1:k){
+B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))
+}
+g=3
+B <- NULL
+for(i in 1:k){
+B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))
+}
+B
+B <- sum(B)
+odds <- NULL#
+	for(i in 1:k){#
+		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
+	}
+z <- list()
+z[[1]] <- letters[seq(2,20,by=2)]
+z
+names(z[[1]]) <- LETTERS[c(1:length(z[[1]]))]
+z
+z[[2]] <- letters[seq(3,20, by=3)]#
+names(z[[2]]) <- LETTERS[seq(3,20, by=3)]#
+z[[3]] <- letters[seq(4,20, by=4)]#
+names(z[[3]]) <- LETTERS[seq(4,20, by=4)]
+z
+do.call(rbind,x)
+do.call(rbind,z)
+require(plyr)
+nam <- sapply(z, names)
+nam
+unam <- unique(unlist(nam))
+unam
+len <- sapply(z, length)
+len
+out <- vector("list", length(len))
+out
+for (i in seq_along(len)) {#
+        out[[i]] <- unname(x[[i]])[match(unam, nam[[i]])]#
+    }
+seq_along(len)
+z
+unam
+nam
+match(unam,nam[[2]])
+unname(z[[2]])[match(unam, nam[[2]])]
+z
+?setNames
+out
+for (i in seq_along(len)) {#
+        out[[i]] <- unname(z[[i]])[match(unam, nam[[i]])]#
+    }
+out
+unam
+setNames(as.data.frame(do.call(rbind, out), stringsAsFactors=FALSE), unam)
+odds
+r2s
+coefs
+nam <- sapply(coefs, names)
+nam
+covariates <- sapply(coefs, names)
+unam <- unique(unlist(nam))
+unam <- unique(unlist(covariates))
+unam
+covariates <- sapply(coefs, names)
+covariates <- unique(unlist(covariates))
+len <- sapply(coefs, length)
+len
+p
+covariate.names
+len
+out <- vector("list", length(p))
+out
+sapply(coefs,names)
+coefs.mod <- sapply(coefs,names)
+coefs.mod
+unique(unlist(covariates.mod))
+covariates.mod <- sapply(coefs,names)
+unique(unlist(covariates.mod))
+sapply(coefs,length)
+vector("list",length(covariate.number))
+covariate.number <- sapply(coefs,length)
+vector("list",length(covariate.number))
+coefs.df <- function(coefs){#
+		covariates.mod <- sapply(coefs,names)#
+		covariates <- unique(unlist(covariates.mod))#
+		covariate.number <- sapply(coefs,length)#
+		mod <- vector("list",length(covariate.number))#
+		for(i in seq_along(covariate.number)){#
+			covariate.number[[i]] <- unname(coefs[[i]])[match(covariates,covariates.mod[[i]])]#
+		}#
+		setNames(as.data.frame(do.call(rbind,covariate.number),stringsAsFactors=FALSE,covariates))#
+	}
+coefs
+covariates.mod <- sapply(coefs,names)#
+	covariates <- unique(unlist(covariates.mod))#
+	covariate.number <- sapply(coefs,length)#
+	mod <- vector("list",length(covariate.number))#
+	for(i in seq_along(covariate.number)){#
+			covariate.number[[i]] <- unname(coefs[[i]])[match(covariates,covariates.mod[[i]])]#
+		}#
+	coefs.df <- setNames(as.data.frame(do.call(rbind,covariate.number),stringsAsFactors=FALSE,covariates))
+covariates.mod <- sapply(coefs,names)
+covariates <- unique(unlist(covariates.mod))
+covariate.number <- sapply(coefs,length)
+mod <- vector("list",length(covariate.number))
+for(i in seq_along(covariate.number)){
+coefs.df <- setNames(as.data.frame(do.call(rbind,covariate.number),stringsAsFactors=FALSE,covariates))
+}
+?nm
+?setNames
+covariates
+covariates.mod <- sapply(coefs,names)#
+	covariates <- unique(unlist(covariates.mod))#
+	covariate.number <- sapply(coefs,length)#
+	mod <- vector("list",length(covariate.number))#
+	for(i in seq_along(covariate.number)){#
+			covariate.number[[i]] <- unname(coefs[[i]])[match(covariates,covariates.mod[[i]])]#
+		}#
+	coefs.df <- setNames(as.data.frame(do.call(rbind,covariate.number),stringsAsFactors=FALSE,nm=covariates))
+covariates.mod <- sapply(coefs,names)#
+	covariates <- unique(unlist(covariates.mod))#
+	covariate.number <- sapply(coefs,length)#
+	mod <- vector("list",length(covariate.number))#
+	for(i in seq_along(covariate.number)){#
+			covariate.number[[i]] <- unname(coefs[[i]])[match(covariates,covariates.mod[[i]])]#
+		}#
+	coefs.df <- setNames(as.data.frame(do.call(rbind,covariate.number),stringsAsFactors=FALSE),nm=covariates)
+covariates.mod <- sapply(coefs,names)
+covariates.mod
+covariates <- unique(unlist(covariates.mod))
+covariates
+covariate.number <- sapply(coefs,length)
+covariate.number
+mod <- vector("list",length(covariate.number))
+mod
+covariates.mod <- sapply(coefs,names)#
+	covariates <- unique(unlist(covariates.mod))#
+	covariate.number <- sapply(coefs,length)#
+	mod <- vector("list",length(covariate.number))#
+	for(i in seq_along(covariate.number)){#
+			mod[[i]] <- unname(coefs[[i]])[match(covariates,covariates.mod[[i]])]#
+		}#
+	coefs.df <- setNames(as.data.frame(do.call(rbind,mod),stringsAsFactors=FALSE),nm=covariates)
+coefs.df
+coefs.df[1,]
+coefs.df[1,]$"A"
+coefs.df[1,][1]
+coefs.df[1,][2]
+coefs.df[1,1]
+coefs.df[1,2]
+ev <- NULL
+for(i in 1:k){#
+		ev[i] <- c(ev,(g/(g+1))*coefs.df[i,1])#
+	}
+g
+coefs.df[1,1]
+coefs.df[4,1]
+apply(coefs.df,2,function(X){(g/(g+1))*X})
+coefs.df
+odds
+ev <- apply(coefs.df,2,function(X){(g/(g+1))*X})
+ev
+odds
+nrow(coefs.df)
+ncol(coefs.df)
+ev <- NULL
+ev <- NULL#
+	for(i in 1:nrow(coefs.df)){#
+		for(j in 1:ncol(coefs.df)){#
+			ev <- c(ev,(g/(g+1))*coefs.df[i,j])#
+		}#
+	}
+ev
+?data.frame
+matrix(ev,ncol=ncol(coefs.df))
+matrix(ev,ncol=ncol(coefs.df),byrow=TRUE)
+ev <- NULL#
+	for(i in 1:nrow(coefs.df)){#
+		for(j in 1:ncol(coefs.df)){#
+			ev <- c(ev,(g/(g+1))*coefs.df[i,j])#
+		}#
+	}#
+	ev <- matrix(ev,ncol=ncol(coefs.df),byrow=TRUE)
+ev
+colsum(ev)
+?colsums
+colSums(ev)
+colSums(ev,na.rm=TRUE)
+each.ev <- NULL
+for(i in 1:ncol(ev)){#
+		each.ev <- c(each.ev,odds*ev[,i])#
+	}
+each.ev
+each.ev <- NULL#
+	for(i in 1:ncol(ev)){#
+		each.ev <- c(each.ev,sum(odds*ev[,i]))#
+	}
+each.ev
+each.ev <- NULL#
+	for(i in 1:ncol(ev)){#
+		each.ev <- c(each.ev,sum(odds*ev[,i],na.rm=TRUE))#
+	}
+each.ev
+odds
+coefs
+r2s
+coefs.df
+odds
+rownames(coefs.df)
+rownames(coefs.df[,i]!=NA)
+rownames(!is.na(coefs.df[,i]))
+!is.na(coefs.df[,i])
+!is.na(coefs.df[,1])
+rownames(!is.na(coefs.df[,1]))
+which(!is.na(coefs.df[,1]))
+index <- matrix(NULL)
+index
+index <- matrix(NULL,nrow=ncol(coefs.df))
+index <- matrix(NA,nrow=ncol(coefs.df))
+index
+for(i in 1:ncol(coefs.df)){#
+		index[i] <- which(!is.na(coefs.df[,i]))#
+	}
+which(!is.na(coefs.df[,1]))
+which(!is.na(coefs.df[,2]))
+which(!is.na(coefs.df[,3]))
+index <- list(NULL)
+index
+for(i in 1:ncol(coefs.df)){#
+		index[i] <- which(!is.na(coefs.df[,i]))#
+	}
+index[1] <- which(!is.na(coefs.df[,3]))
+index
+index <- list(NULL)
+index[[1]] <- which(!is.na(coefs.df[,3]))
+index
+index <- list(NULL)#
+	for(i in 1:ncol(coefs.df)){#
+		index[[i]] <- which(!is.na(coefs.df[,i]))#
+	}
+index
+odds
+odds[index[[1]]]
+odds[index[[2]]]
+odds[index[[3]]]
+odds
+nonzero <- NULL
+nonzero <- NULL#
+	for(i in 1:ncol(coefs.df)){#
+		nonzero <- c(nonzero,sum(odds[index[[i]]])/sum(odds))#
+	}
+nonzero
+coefs
+r2s
+odds
+each.ev
+nonzero
+each.ev
+names(each.ev)
+names(each.ev) <- c(covariate.names)
+each.ev
+names(each.ev)
+nonzero
+names(nonzero) <- c(covariate.names)
+nonzero
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+fitBMA(myX,myY,3)
+a <- fitBMA(myX,myY,3)
+plot(a)
+summary(a)
+library(devtools)
+library(roxygen2)
+setwd("/Users/jaeheejung/Desktop/Spring 2014/Applied Statistical Programming/BayesianModelAveraging")
+current.code <- as.package("BMAPack")
+load_all(current.code)
+document(current.code)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+a <- fitBMA(myX,myY,4)
+a
+summary(a)
+plot(a)

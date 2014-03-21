@@ -83,43 +83,52 @@ setMethod(f="fitBMA",c("matrix","matrix"),
 	
 	##Now we'll calculate the posterior expected values of the coefficients.
 	
-	coef1 <- NULL
-	for(i in 1:k){
-		coef1 <- c(coef1,coefs[[i]]["A"])
+	covariates.mod <- sapply(coefs,names)
+	
+	covariates <- unique(unlist(covariates.mod))
+	
+	covariate.number <- sapply(coefs,length)
+	
+	mod <- vector("list",length(covariate.number))
+	
+	for(i in seq_along(covariate.number)){
+			mod[[i]] <- unname(coefs[[i]])[match(covariates,covariates.mod[[i]])]
+		}
+		
+	coefs.df <- setNames(as.data.frame(do.call(rbind,mod),stringsAsFactors=FALSE),nm=covariates)
+	
+	ev <- NULL
+	for(i in 1:nrow(coefs.df)){
+		for(j in 1:ncol(coefs.df)){
+			ev <- c(ev,(g/(g+1))*coefs.df[i,j])
+		}
 	}
 	
-	coef2 <- NULL
-	for(i in 1:k){
-		coef2 <- c(coef2,coefs[[i]]["B"])
+	ev <- matrix(ev,ncol=ncol(coefs.df),byrow=TRUE)
+	
+	each.ev <- NULL
+	for(i in 1:ncol(ev)){
+		each.ev <- c(each.ev,sum(odds*ev[,i],na.rm=TRUE))
 	}
 	
-	coef3 <- NULL
-	for(i in 1:k){
-		coef3 <- c(coef3,coefs[[i]]["C"])
-	}
-	
-	ev1 <- (g/(g+1))*coef1
-	
-	ev2 <- (g/(g+1))*coef2
-	
-	ev3 <- (g/(g+1))*coef3
-	
-	ev1 <- sum(odds*ev1,na.rm=TRUE)
-	
-	ev2 <- sum(odds*ev2,na.rm=TRUE)
-	
-	ev3 <- sum(odds*ev3,na.rm=TRUE)
+	names(each.ev) <- c(covariate.names)
 	
 	##Now we'll calculate the posterior probability that the coefficient is non-zero.
 	
-	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)
+	index <- list(NULL)
+	for(i in 1:ncol(coefs.df)){
+		index[[i]] <- which(!is.na(coefs.df[,i]))
+	}
 	
-	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)
+	nonzero <- NULL
+	for(i in 1:ncol(coefs.df)){
+		nonzero <- c(nonzero,sum(odds[index[[i]]])/sum(odds))
+	}
 	
-	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
+	names(nonzero) <- c(covariate.names)
 	
 	##Return the items in the five slots.
-return(new("BMA",Coefs=coefs,R2s=r2s,ModelOdds=odds,ExpectedValues=list("A"=ev1,"B"=ev2,"C"=ev3),Nonzero=list("A"=nonzero1,"B"=nonzero2,"C"=nonzero3)))
+return(new("BMA",Coefs=coefs,R2s=r2s,ModelOdds=odds,ExpectedValues=each.ev,Nonzero=nonzero))
 
 	}
 	)
