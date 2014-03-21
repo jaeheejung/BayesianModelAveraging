@@ -1,0 +1,592 @@
+z
+?data.frame
+data.frame(z)
+?matrix
+matrix(z,ncol=3)
+matrix(z,ncol=3,nrow=7)
+coefs
+coefs[[7]]
+coefs[[7]]$"A"
+coefs[[7]][A]
+coefs[[7]]["A"]
+coefs[[7]][1]
+covariate.names
+for(i in covariate.names){#
+		for(j in 1:k){#
+			coefs[[j]][i]#
+		}#
+	}
+for(i in covariate.names){#
+		q <- for(j in 1:k){#
+			coefs[[j]][i]#
+		}#
+	}
+q
+for(i in covariate.names){#
+		for(j in 1:k){#
+			q <- coefs[[j]][i]#
+		}#
+	}
+q
+q <- NULL
+for(i in covariate.names){#
+		for(j in 1:k){#
+			q <- c(q,coefs[[j]][i])#
+		}#
+	}
+q
+for(i in covariate.names)(j in 1:k){#
+			q <- c(q,coefs[[j]][i])#
+		}
+q <- NULL#
+	for(i in covariate.names)for(j in 1:k){#
+			q <- c(q,coefs[[j]][i])#
+		}
+q
+coefs[[i]]["A"]
+q <- NULL#
+	for(i in covariate.names)for(j in 1:k){#
+			q <- c(q,coefs[[i]][j])#
+		}#
+	}
+q <- NULL#
+	for(i in covariate.names)for(j in 1:k){#
+			q <- c(q,coefs[[i]][j])#
+		}
+q
+q <- NULL#
+	for(i in covariate.names){#
+		for(j in 1:k){#
+			q <- c(q,coefs[[i]][j])#
+		}#
+	}
+q
+q <- NULL#
+	for(j in covariate.names){#
+		for(i in 1:k){#
+			q <- c(q,coefs[[i]][j])#
+		}#
+	}
+q
+q <- NULL#
+	for(j in 1:k){#
+		for(i in covariate.names){#
+			q <- c(q,coefs[[j]][i])#
+		}#
+	}
+q
+q
+q["A"]
+q["A","A"]
+str(q)
+odds
+p
+coefs
+coefs
+k
+(g/(g+1))*coefs
+coefs
+g
+z
+(g/(g+1))*z
+list((g/(g+1))*z)
+coefs
+(g/(g+1))*coefs[[1]]
+(g/(g+1))*coefs[[7]]
+coefs
+all.lm
+coefs
+all.lm
+z
+coefs.unlist <- unlist(coefs)
+coefs.unlist
+oefs.unlist <- unlist(coefs)
+coefs.unlist <- unlist(coefs)
+coefs.unlist
+(g/(g+1))*coefs.unlist
+ev.per.model <- (g/(g+1))*coefs.unlist
+ev.per.model
+which(ev.per.model["A"])
+coefs
+odds
+B
+p
+r2s
+coefs
+coefs.mat <- matrix("NA",nrow=length(all.lm),ncol=ncol(x))
+coefs.mat
+coefs
+unlist(coefs[1])
+unlist(coefs[7])
+unlist(coefs[7],use.names=FALSE)
+for(i in 1:nrow(coef.matrix)){#
+coef.matrix[i,seq(length(unlist(coefs[i],use.names=FALSE)))]<- unlist(coefs[i],use.names=FALSE)#
+	}
+coefs.mat
+for(i in 1:nrow(coefs.mat)){#
+coefs.mat[i,seq(length(unlist(coefs[i],use.names=FALSE)))]<- unlist(coefs[i],use.names=FALSE)#
+	}
+coefs.mat
+coefs.mat <- matrix("NA",nrow=length(all.lm),ncol=ncol(x),dimnames=c(NULL,covariate.names))
+coefs.mat <- matrix("NA",nrow=length(all.lm),ncol=ncol(x),dimnames=list(NULL,covariate.names))
+coefs.mat
+Fill in the matrix with coefficient estimates using a for loop.#
+	for(i in 1:nrow(coefs.mat)){#
+coefs.mat[i,seq(length(unlist(coefs[i],use.names=FALSE)))]<- unlist(coefs[i],use.names=FALSE)#
+	}
+coefs.mat
+r2s
+coefs.mat
+coefs.mat <- (g/(g+1))*coefs.mat
+str(coefs.mat)
+coefs.mat
+(g/(g+1))*x
+coefs
+(g/(g+1))*coefs
+2*coefs
+2*coefs[1]
+2*coefs[[1]
+]
+ev.vec <- NULL#
+	for(i in 1:k){#
+		ev.vec <- c(ev.vec,(g/(g+1))/coefs[[i]])#
+	}
+ev.vec
+odds
+as.matrix(ev.vec)
+all.ev <- NULL#
+	for(i in 1:k){#
+		all.ev <- c(all.ev,(g/(g+1))/coefs[[i]])#
+	}
+all.ev
+all.ev <- as.matrix(all.ev)
+all.ev
+all.eva["A",]
+all.ev["A",]
+coefs
+coef1 <- NULL
+for(i in 1:k){#
+		coef1 <- c(coef1,coefs[[i]]["A"])#
+	}
+coef1
+coef2 <- NULL#
+	for(i in 1:k){#
+		coef1 <- c(coef2,coefs[[i]]["B"])#
+	}
+coef1 <- NULL#
+	for(i in 1:k){#
+		coef1 <- c(coef1,coefs[[i]]["A"])#
+	}#
+	coef2 <- NULL#
+	for(i in 1:k){#
+		coef2 <- c(coef2,coefs[[i]]["B"])#
+	}#
+	coef3 <- NULL#
+	for(i in 1:k){#
+		coef3 <- c(coef3,coefs[[i]]["C"])#
+	}
+coef1
+coef2
+coef3
+for(i in c("coef1","coef2","coef3")){#
+		(g/(g+1))*i#
+	}
+for(i in c(coef1,coef2,coef3)){#
+		(g/(g+1))*i#
+	}
+coef1 <- NULL#
+	for(i in 1:k){#
+		coef1 <- c(coef1,coefs[[i]]["A"])#
+	}#
+	coef2 <- NULL#
+	for(i in 1:k){#
+		coef2 <- c(coef2,coefs[[i]]["B"])#
+	}#
+	coef3 <- NULL#
+	for(i in 1:k){#
+		coef3 <- c(coef3,coefs[[i]]["C"])#
+	}
+coef1
+coef2
+coef3
+(g/(g+1))*coef1
+ev <- (g/(g+1))*coef1
+ev1 <- (g/(g+1))*coef1
+ev2 <- (g/(g+1))*coef2
+ev3 <- (g/(g+1))*coef3
+ev2
+ev3
+odds
+odds*ev1
+ev1
+ev1 <- odds*ev1
+ev2 <- odds*ev2
+ev3 <- odds*ev3
+ev2
+ev3
+odds
+coefs
+coefs.unlist
+odds
+odds[c(1,4,5,7)]
+nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)
+nonzero1
+nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)
+nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
+nonzero2
+nonzero3
+coefs
+rsquared
+r2s
+rm(list=ls())
+rsquared
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+x <- myX
+y <- myY
+x
+y
+Standardize the covariates.#
+	x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
+	##Standardize the dependent variable.#
+	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
+	##Extract the names of the covariates.#
+	covariate.names <- colnames(x)#
+	##Extract the name of the outcome variable.#
+	outcome.name <- colnames(y)#
+	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
+	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
+	##Create the linear model formulas, excluding the intercepts.#
+	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
+	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
+	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
+	##Use the sapply() function to create a list of coefficient estimates.#
+	coefs <- sapply(all.lm,coef)#
+	##Use the sapply() function to get a vector of Rsquared values.#
+	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
+	##We'll now calculate the posterior model odds for each model.#
+	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
+	n <- nrow(x)#
+	k <- length(all.lm)#
+	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
+	p <- NULL#
+	for(i in 1:length(coefs.list)){#
+		p <- c(p,length(coefs.list[[i]]))#
+	}#
+	##Use a for loop to create a vector of posterior model frequencies for each model. #
+	B <- NULL#
+	for(i in 1:k){#
+		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
+	}#
+	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
+	B <- sum(B)#
+	##Create a vector of posterior model odds.#
+	odds <- NULL#
+	for(i in 1:k){#
+		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
+	}#
+	##Now we'll calculate the posterior expected values of the coefficients.#
+	coef1 <- NULL#
+	for(i in 1:k){#
+		coef1 <- c(coef1,coefs[[i]]["A"])#
+	}#
+	coef2 <- NULL#
+	for(i in 1:k){#
+		coef2 <- c(coef2,coefs[[i]]["B"])#
+	}#
+	coef3 <- NULL#
+	for(i in 1:k){#
+		coef3 <- c(coef3,coefs[[i]]["C"])#
+	}#
+	ev1 <- (g/(g+1))*coef1#
+	ev2 <- (g/(g+1))*coef2#
+	ev3 <- (g/(g+1))*coef3#
+	ev1 <- odds*ev1#
+	ev2 <- odds*ev2#
+	ev3 <- odds*ev3#
+	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
+	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
+	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
+	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
+g=3
+g
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+x <- myX
+y <- myY
+x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
+	##Standardize the dependent variable.#
+	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
+	##Extract the names of the covariates.#
+	covariate.names <- colnames(x)#
+	##Extract the name of the outcome variable.#
+	outcome.name <- colnames(y)#
+	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
+	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
+	##Create the linear model formulas, excluding the intercepts.#
+	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
+	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
+	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
+	##Use the sapply() function to create a list of coefficient estimates.#
+	coefs <- sapply(all.lm,coef)#
+	##Use the sapply() function to get a vector of Rsquared values.#
+	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
+	##We'll now calculate the posterior model odds for each model.#
+	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
+	n <- nrow(x)#
+	k <- length(all.lm)#
+	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
+	p <- NULL#
+	for(i in 1:length(coefs.list)){#
+		p <- c(p,length(coefs.list[[i]]))#
+	}#
+	##Use a for loop to create a vector of posterior model frequencies for each model. #
+	B <- NULL#
+	for(i in 1:k){#
+		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
+	}#
+	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
+	B <- sum(B)#
+	##Create a vector of posterior model odds.#
+	odds <- NULL#
+	for(i in 1:k){#
+		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
+	}#
+	##Now we'll calculate the posterior expected values of the coefficients.#
+	coef1 <- NULL#
+	for(i in 1:k){#
+		coef1 <- c(coef1,coefs[[i]]["A"])#
+	}#
+	coef2 <- NULL#
+	for(i in 1:k){#
+		coef2 <- c(coef2,coefs[[i]]["B"])#
+	}#
+	coef3 <- NULL#
+	for(i in 1:k){#
+		coef3 <- c(coef3,coefs[[i]]["C"])#
+	}#
+	ev1 <- (g/(g+1))*coef1#
+	ev2 <- (g/(g+1))*coef2#
+	ev3 <- (g/(g+1))*coef3#
+	ev1 <- odds*ev1#
+	ev2 <- odds*ev2#
+	ev3 <- odds*ev3#
+	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
+	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
+	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
+	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
+	##Standardize the dependent variable.#
+	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
+	##Extract the names of the covariates.#
+	covariate.names <- colnames(x)#
+	##Extract the name of the outcome variable.#
+	outcome.name <- colnames(y)#
+	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
+	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
+	##Create the linear model formulas, excluding the intercepts.#
+	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
+	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
+	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
+	##Use the sapply() function to create a list of coefficient estimates.#
+	coefs <- sapply(all.lm,coef)#
+	##Use the sapply() function to get a vector of Rsquared values.#
+	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
+	##We'll now calculate the posterior model odds for each model.#
+	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
+	n <- nrow(x)#
+	k <- length(all.lm)#
+	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
+	p <- NULL#
+	for(i in 1:length(coefs)){#
+		p <- c(p,length(coefs[[i]]))#
+	}#
+	##Use a for loop to create a vector of posterior model frequencies for each model. #
+	B <- NULL#
+	for(i in 1:k){#
+		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
+	}#
+	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
+	B <- sum(B)#
+	##Create a vector of posterior model odds.#
+	odds <- NULL#
+	for(i in 1:k){#
+		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
+	}#
+	##Now we'll calculate the posterior expected values of the coefficients.#
+	coef1 <- NULL#
+	for(i in 1:k){#
+		coef1 <- c(coef1,coefs[[i]]["A"])#
+	}#
+	coef2 <- NULL#
+	for(i in 1:k){#
+		coef2 <- c(coef2,coefs[[i]]["B"])#
+	}#
+	coef3 <- NULL#
+	for(i in 1:k){#
+		coef3 <- c(coef3,coefs[[i]]["C"])#
+	}#
+	ev1 <- (g/(g+1))*coef1#
+	ev2 <- (g/(g+1))*coef2#
+	ev3 <- (g/(g+1))*coef3#
+	ev1 <- odds*ev1#
+	ev2 <- odds*ev2#
+	ev3 <- odds*ev3#
+	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
+	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
+	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
+	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
+coefs
+r2s
+odds
+ev1
+ev2
+ev3
+coef1
+sum(coef1)
+sum(coef1,na.rm=TRUE)
+myX <- matrix(data=c(0.31,0.33,-2.81,1.35,-0.48,0.14,3.84,-0.7,-0.67,-0.74,-0.37,-3.99,1.46,-0.89,0.27,-0.96,-0.92,-2.42,0.63,-1.44,-1.22,-2.36,2.7,3.79,-2.12,-3.46,2.77,-0.76,0.77,-0.9),nrow=10,ncol=3,dimnames=list(NULL,c("A","B","C")))
+myY <- matrix(c(-1.82,2.49,0.08,1.04,1.61,0.48,0.78,-0.79,1.79,-0.29),dimnames=list(NULL,"D"))
+x <- myX
+y <- myY
+x <- apply(x,2,function(X){(X-mean(X))/sd(X)})#
+	##Standardize the dependent variable.#
+	y <- apply(y,2,function(X){(X-mean(X))/sd(X)})#
+	##Extract the names of the covariates.#
+	covariate.names <- colnames(x)#
+	##Extract the name of the outcome variable.#
+	outcome.name <- colnames(y)#
+	##Use the combn() and lapply() functions to calculate  all possible combinations of the covariates.#
+	combinations <- unlist(lapply(1:ncol(x),function(X){combn(ncol(x),X,simplify=F)}),recursive=F)#
+	##Create the linear model formulas, excluding the intercepts.#
+	formulas <- sapply(combinations,function(X){paste(paste(outcome.name,"~","-1","+"),paste(covariate.names[X],collapse="+"))})#
+	##Use the lapply() function to convert the formulas in the form of pasted characters to actual formulas that can be used in the lm() function.#
+	all.lm <- lapply(formulas,function(X){lm(as.formula(X),data=data.frame(y,x))})#
+	##Use the sapply() function to create a list of coefficient estimates.#
+	coefs <- sapply(all.lm,coef)#
+	##Use the sapply() function to get a vector of Rsquared values.#
+	r2s <- sapply(all.lm,function(X){summary(X)$r.squared})#
+	##We'll now calculate the posterior model odds for each model.#
+	##For efficient coding, save the number of observations in the data and the number of linear models computed.#
+	n <- nrow(x)#
+	k <- length(all.lm)#
+	##Use a for loop to create a vector that shows the number of covariates in each model. That is, the first element is the number of covariates in the first linear model.#
+	p <- NULL#
+	for(i in 1:length(coefs)){#
+		p <- c(p,length(coefs[[i]]))#
+	}#
+	##Use a for loop to create a vector of posterior model frequencies for each model. #
+	B <- NULL#
+	for(i in 1:k){#
+		B <- c(B,(1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))#
+	}#
+	##Sum the vector of posterior model frequencies to be used as the denominator in calculating the posterior model odds for each model.#
+	B <- sum(B)#
+	##Create a vector of posterior model odds.#
+	odds <- NULL#
+	for(i in 1:k){#
+		odds <- c(odds,((1+g)^((n-p[i]-1)/2)*(1+g*(1-r2s[i]))^(-(n-1)/2))/B)#
+	}#
+	##Now we'll calculate the posterior expected values of the coefficients.#
+	coef1 <- NULL#
+	for(i in 1:k){#
+		coef1 <- c(coef1,coefs[[i]]["A"])#
+	}#
+	coef2 <- NULL#
+	for(i in 1:k){#
+		coef2 <- c(coef2,coefs[[i]]["B"])#
+	}#
+	coef3 <- NULL#
+	for(i in 1:k){#
+		coef3 <- c(coef3,coefs[[i]]["C"])#
+	}#
+	ev1 <- (g/(g+1))*coef1#
+	ev2 <- (g/(g+1))*coef2#
+	ev3 <- (g/(g+1))*coef3#
+	ev1 <- sum(odds*ev1,na.rm=TRUE)#
+	ev2 <- sum(odds*ev2,na.rm=TRUE)#
+	ev3 <- sum(odds*ev3,na.rm=TRUE)#
+	##Now we'll calculate the posterior probability that the coefficient is non-zero.#
+	nonzero1 <- sum(odds[c(1,4,5,7)])/sum(odds)#
+	nonzero2 <- sum(odds[c(2,4,6,7)])/sum(odds)#
+	nonzero3 <- sum(odds[c(3,5,6,7)])/sum(odds)
+ev1
+ev2
+ev3
+coef2
+coefs
+list(ev1,ev2,ev3)
+list("A"=ev1,"B"=ev2,"C"=ev3)
+c("A"=ev1,"B"=ev2,"C"=ev3)
+nonzero1
+nonzero2
+nonzero3
+ev1
+ev2
+ev3
+nonzero1
+nonzero2
+nonzero3
+plot
+covariate.names
+covariate.names
+coefs
+rsquared
+r2s
+nonzero1
+ev1
+odds
+coefs[[7]]
+length(coefs[[7]])
+names(coefs[[7]])
+unique(coefs)
+?tail
+tail(coefs)
+length(coefs)
+names(coefs)
+coefs
+plot(coefs)
+plot(coefs[[7]])
+ev1
+list("A"=ev1,"B"=ev2,"C"=ev3)
+z <- list("A"=ev1,"B"=ev2,"C"=ev3)
+z
+plot()
+plot(z)
+matrix("A"=ev1,"B"=ev2,"C"=ev3)
+data.frame("A"=ev1,"B"=ev2,"C"=ev3)
+z <- data.frame("A"=ev1,"B"=ev2,"C"=ev3)
+plot(z)
+matrix(ev1,ev2,ev3)
+matrix(c(ev1,ev2,ev3))
+plot(matrix(c(ev1,ev2,ev3)))
+coefs
+z
+z <- list("A"=ev1,"B"=ev2,"C"=ev3)
+z
+unlist(z)
+unlist(unlist(z))
+plot(unlist(z))
+plot(unlist(z))
+nonzero1
+par(mfrow=c(1,2))#
+		plot(unlist(x@ExpectedValues),ylim=c(-1,1),xlab="Covariate",ylab="Expected value of coefficient",axes=FALSE)#
+axis(side=1,labels=names(x@ExpectedValues))#
+#
+axis(side=2)#
+#
+plot(unlist(x@Nonzero),ylim=c(-1,1),xlab="Covariate",ylab="Posterior probability that coefficient is non-zero",axes=FALSE)#
+#
+axis(side=1,labels=names(x@ExpectedValues))#
+#
+axis(side=2)#
+#
+main("Coefficients' expected values and posterior probabilities of being non-zero")#
+#
+}
+summary
+show
+summary(lm(y~x))
+coefs
